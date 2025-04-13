@@ -20,6 +20,8 @@ class TestSum():
         assert chk.checkout("AAABB") == 175
         assert chk.checkout("AAABBAA") == 245
         assert chk.checkout("AAAAAAAA") == 330
+        assert chk.checkout("PPPPPQQQ") == 280
+        assert chk.checkout("PPPPPQQQPQ") == 360
 
     def test_special_offer(self):
         chk = CheckoutSolution()
@@ -27,6 +29,8 @@ class TestSum():
         assert chk.checkout("EBE") == 80
         assert chk.checkout("EBEB") == 110
         assert chk.checkout("EBEBB") == 125
+        assert chk.checkout("NNNM") == 120
+        assert chk.checkout("NNNMM") == 135
     
     def test_buy_m_get_n_free(self):
         chk = CheckoutSolution()
@@ -37,3 +41,44 @@ class TestSum():
         assert chk.checkout("FFFFF") == 40
         assert chk.checkout("FFFFFF") == 40
         assert chk.checkout("FFFFFFF") == 50
+        assert chk.checkout("UU") == 80
+        assert chk.checkout("UUU") == 120
+        assert chk.checkout("UUUU") == 120
+        assert chk.checkout("UUUUU") == 160
+        assert chk.checkout("UUUUUU") == 200
+        assert chk.checkout("UUUUUUU") == 240
+        assert chk.checkout("UUUUUUUU") == 240
+
+
+"""
++------+-------+------------------------+
+| Item | Price | Special offers         |
++------+-------+------------------------+
+| A    | 50    | 3A for 130, 5A for 200 |
+| B    | 30    | 2B for 45              |
+| C    | 20    |                        |
+| D    | 15    |                        |
+| E    | 40    | 2E get one B free      |
+| F    | 10    | 2F get one F free      |
+| G    | 20    |                        |
+| H    | 10    | 5H for 45, 10H for 80  |
+| I    | 35    |                        |
+| J    | 60    |                        |
+| K    | 80    | 2K for 150             |
+| L    | 90    |                        |
+| M    | 15    |                        |
+| N    | 40    | 3N get one M free      |
+| O    | 10    |                        |
+| P    | 50    | 5P for 200             |
+| Q    | 30    | 3Q for 80              |
+| R    | 50    | 3R get one Q free      |
+| S    | 30    |                        |
+| T    | 20    |                        |
+| U    | 40    | 3U get one U free      |
+| V    | 50    | 2V for 90, 3V for 130  |
+| W    | 20    |                        |
+| X    | 90    |                        |
+| Y    | 10    |                        |
+| Z    | 50    |                        |
++------+-------+------------------------+
+"""
