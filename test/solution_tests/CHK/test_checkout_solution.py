@@ -9,7 +9,7 @@ class TestSum():
 
     def test_invalid(self):
         chk = CheckoutSolution()
-        assert chk.checkout("ABCE") == -1
+        assert chk.checkout("ABCG") == -1
         assert chk.checkout("FABCE") == -1
 
     def test_simple_offers(self):
@@ -19,3 +19,11 @@ class TestSum():
         assert chk.checkout("AAABB") == 175
         assert chk.checkout("AAABBAA") == 245
         assert chk.checkout("AAAAAAAA") == 330
+
+    def test_special_offer(self):
+        chk = CheckoutSolution()
+        assert chk.checkout("EE") == 80
+        assert chk.checkout("EBE") == 80
+        assert chk.checkout("EBEB") == 110
+        assert chk.checkout("EBEBB") == 125
+
