@@ -57,17 +57,21 @@ def offer_item_rule(code, offer_count, offer_price):
         return counts, total + offer_price * (num // offer_count)
     return apply
 
+def buy_m_X_get_Y_free_rule(m, X, Y):
+    def apply(counts, total):
+        num_X = counts.get(X, 0)
+        num_free_Y = num_X // m
+        counts[Y] = max(counts.get(Y, 0) - num_free_Y, 0)
+        return counts, total
+    return apply
+
+
 class CheckoutSolution:
 
     def __init__(self):
-        def special_rule_2e_free_b(counts, total):
-            num_e = counts.get("E", 0)
-            num_free_b = num_e // 2
-            counts["B"] = max(counts.get("B", 0) - num_free_b, 0)
-            return counts, total
-        
         self.rules = [
-            special_rule_2e_free_b,
+            buy_m_X_get_Y_free_rule(2, "E", "B"),
+            buy_m_X_get_Y_free_rule(3, "N", "M"),
             offer_item_rule("A", 5, 200),
             offer_item_rule("A", 3, 130),
             offer_item_rule("B", 2, 45),
@@ -76,7 +80,32 @@ class CheckoutSolution:
             simple_item_rule("C", 20),
             simple_item_rule("D", 15),
             simple_item_rule("E", 40),
-            buy_m_get_n_free_rule("F", 2, 1, 10)
+            buy_m_get_n_free_rule("F", 2, 1, 10),
+            simple_item_rule("G", 20),
+            offer_item_rule("H", 10, 80),
+            offer_item_rule("H", 5, 45),
+            simple_item_rule("H", 10),
+            simple_item_rule("I", 35),
+            simple_item_rule("J", 60),
+            offer_item_rule("K", 2, 150),
+            simple_item_rule("K", 80),
+            simple_item_rule("L", 90),
+            simple_item_rule("M", 15),
+            simple_item_rule("N", 40),
+            simple_item_rule("O", 10),
+            offer_item_rule("P", 5, 200),
+            simple_item_rule("P", 50),
+            offer_item_rule("Q", 3, 80),
+            simple_item_rule("Q", 30),
+            simple_item_rule("R", 50),
+            simple_item_rule("S", 30),
+            simple_item_rule("T", 20),
+            buy_m_get_n_free_rule("U", 3, 1, 40),
+            simple_item_rule("V", 50),
+            simple_item_rule("W", 20),
+            simple_item_rule("X", 90),
+            simple_item_rule("Y", 10),
+            simple_item_rule("Z", 50),
         ]
 
     # skus = unicode string
@@ -90,3 +119,4 @@ class CheckoutSolution:
         if len(counts) > 0:
             return -1
         return total
+
