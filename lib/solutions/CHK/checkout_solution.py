@@ -142,8 +142,3 @@ class CheckoutSolution:
         if len(counts) > 0:
             return -1
         return total
-
-
-
-
-
