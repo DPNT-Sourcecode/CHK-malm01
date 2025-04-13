@@ -65,11 +65,31 @@ def buy_m_X_get_Y_free_rule(m, X, Y):
         return counts, total
     return apply
 
+# skus must be in decreasing order of non-discounted price
+def group_discount_rule(skus, count, price):
+    def apply(counts, total):
+        group_num = sum(counts.get(X, 0) for X in skus)
+        num_discounted = group_num - (group_num % count)
+        for sku in skus:
+            if sku not in counts:
+                continue
+            item_count = counts[sku]
+            num_discounted_of_this_item = min(item_count, num_discounted)
+            counts[sku] -= num_discounted_of_this_item
+            if counts[sku] == 0:
+                del counts[sku]
+            num_discounted -= num_discounted_of_this_item
+            if num_discounted == 0:
+                break
+        return counts, total + (group_num // count) * price
+    return apply
 
 class CheckoutSolution:
 
     def __init__(self):
+        # To do: automatically parse price table to list of rules
         self.rules = [
+            group_discount_rule("ZSTYX", 3, 45),
             buy_m_X_get_Y_free_rule(2, "E", "B"),
             buy_m_X_get_Y_free_rule(3, "N", "M"),
             buy_m_X_get_Y_free_rule(3, "R", "Q"),
@@ -122,6 +142,7 @@ class CheckoutSolution:
         if len(counts) > 0:
             return -1
         return total
+
 
 
 
