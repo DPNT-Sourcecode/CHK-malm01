@@ -72,10 +72,11 @@ class CheckoutSolution:
         self.rules = [
             buy_m_X_get_Y_free_rule(2, "E", "B"),
             buy_m_X_get_Y_free_rule(3, "N", "M"),
+            buy_m_X_get_Y_free_rule(3, "R", "Q"),
             offer_item_rule("A", 5, 200),
             offer_item_rule("A", 3, 130),
-            offer_item_rule("B", 2, 45),
             simple_item_rule("A", 50),
+            offer_item_rule("B", 2, 45),
             simple_item_rule("B", 30),
             simple_item_rule("C", 20),
             simple_item_rule("D", 15),
@@ -101,6 +102,8 @@ class CheckoutSolution:
             simple_item_rule("S", 30),
             simple_item_rule("T", 20),
             buy_m_get_n_free_rule("U", 3, 1, 40),
+            offer_item_rule("V", 3, 130),
+            offer_item_rule("V", 2, 90),
             simple_item_rule("V", 50),
             simple_item_rule("W", 20),
             simple_item_rule("X", 90),
@@ -119,4 +122,5 @@ class CheckoutSolution:
         if len(counts) > 0:
             return -1
         return total
+
 
