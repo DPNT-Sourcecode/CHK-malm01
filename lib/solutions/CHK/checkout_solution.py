@@ -99,16 +99,16 @@ class CheckoutSolution:
             offer_item_rule("Q", 3, 80),
             simple_item_rule("Q", 30),
             simple_item_rule("R", 50),
-            simple_item_rule("S", 30),
+            simple_item_rule("S", 20),
             simple_item_rule("T", 20),
             buy_m_get_n_free_rule("U", 3, 1, 40),
             offer_item_rule("V", 3, 130),
             offer_item_rule("V", 2, 90),
             simple_item_rule("V", 50),
             simple_item_rule("W", 20),
-            simple_item_rule("X", 90),
-            simple_item_rule("Y", 10),
-            simple_item_rule("Z", 50),
+            simple_item_rule("X", 17),
+            simple_item_rule("Y", 20),
+            simple_item_rule("Z", 21),
         ]
 
     # skus = unicode string
@@ -122,6 +122,7 @@ class CheckoutSolution:
         if len(counts) > 0:
             return -1
         return total
+
 
 
 
