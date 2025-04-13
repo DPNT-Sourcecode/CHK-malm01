@@ -37,7 +37,3 @@ class TestSum():
         assert chk.checkout("FFFFF") == 40
         assert chk.checkout("FFFFFF") == 40
         assert chk.checkout("FFFFFFF") == 50
-
-
-
-
