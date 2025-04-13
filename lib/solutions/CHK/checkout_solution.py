@@ -2,42 +2,54 @@ from collections import Counter
 
 """
 Our price table and offers:
-+------+-------+----------------+
-| Item | Price | Special offers |
-+------+-------+----------------+
-| A    | 50    | 3A for 130     |
-| B    | 30    | 2B for 45      |
-| C    | 20    |                |
-| D    | 15    |                |
-+------+-------+----------------+
++------+-------+------------------------+
+| Item | Price | Special offers         |
++------+-------+------------------------+
+| A    | 50    | 3A for 130, 5A for 200 |
+| B    | 30    | 2B for 45              |
+| C    | 20    |                        |
+| D    | 15    |                        |
+| E    | 40    | 2E get one B free      |
++------+-------+------------------------+
 """
+
+def simple_item_rule(code, price):
+    def apply(counts, total):
+        num = counts.pop(code, 0)
+        return counts, total + num * price
+    return apply
+
+def offer_item_rule(code, offer_count, offer_price):
+    def apply(counts, total):
+        num = counts.get(code, 0)
+        if num % offer_count == 0:
+            del counts[code]
+        else:
+            counts[code] %= offer_count
+        return counts, total + offer_price * (num // offer_count)
+    return apply
 
 class CheckoutSolution:
 
     def __init__(self):
-        self.price_table = {
-            "A": 50,
-            "B": 30,
-            "C": 20,
-            "D": 15
-        }
-        self.offers = {
-            "A": (3, 130),
-            "B": (2, 45)
-        }
+        self.rules = [
+            offer_item_rule("A", 5, 200),
+            offer_item_rule("A", 3, 130),
+            offer_item_rule("B", 2, 45),
+            simple_item_rule("A", 50),
+            simple_item_rule("B", 30),
+            simple_item_rule("C", 20),
+            simple_item_rule("D", 15),
+        ]
 
     # skus = unicode string
     def checkout(self, skus):
         total = 0
-        items = Counter(skus)
-        for sku, num in items.items():
-            if sku not in self.price_table:
+        counts = Counter(skus)
+        for rule in self.rules:
+            counts, total = rule(counts, total)
+            if total == -1:
                 return -1
-            if sku in self.offers:
-                offer = self.offers[sku]
-                num_not_using_offer = num % offer[0]
-                total += self.price_table[sku] * num_not_using_offer + offer[1] * (num // offer[0])
-            else:
-                total += self.price_table[sku] * num
+        if len(counts) > 0:
+            return -1
         return total
-
