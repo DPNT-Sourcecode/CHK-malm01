@@ -10,6 +10,7 @@ Our price table and offers:
 | C    | 20    |                        |
 | D    | 15    |                        |
 | E    | 40    | 2E get one B free      |
+| F    | 10    | 2F get one F free      |
 +------+-------+------------------------+
 """
 
@@ -17,6 +18,13 @@ def simple_item_rule(code, price):
     def apply(counts, total):
         num = counts.pop(code, 0)
         return counts, total + num * price
+    return apply
+
+def buy_m_get_n_free_rule(code, m, n, price):
+    def apply(counts, total):
+        num = counts.pop(code, 0)
+        num_free = (num // (m + n)) * n
+        return counts, total + (num - num_free) * price
     return apply
 
 def offer_item_rule(code, offer_count, offer_price):
@@ -48,6 +56,7 @@ class CheckoutSolution:
             simple_item_rule("C", 20),
             simple_item_rule("D", 15),
             simple_item_rule("E", 40),
+            buy_m_get_n_free_rule("F", 2, 1, 10)
         ]
 
     # skus = unicode string
@@ -61,4 +70,5 @@ class CheckoutSolution:
         if len(counts) > 0:
             return -1
         return total
+
 

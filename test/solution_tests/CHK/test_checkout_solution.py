@@ -26,5 +26,16 @@ class TestSum():
         assert chk.checkout("EBE") == 80
         assert chk.checkout("EBEB") == 110
         assert chk.checkout("EBEBB") == 125
+    
+    def test_buy_m_get_n_free(self):
+        chk = CheckoutSolution()
+        assert chk.checkout("F") == 10
+        assert chk.checkout("FF") == 20
+        assert chk.checkout("FFF") == 20
+        assert chk.checkout("FFFF") == 30
+        assert chk.checkout("FFFFF") == 40
+        assert chk.checkout("FFFFFF") == 40
+        assert chk.checkout("FFFFFFF") == 50
+
 
 
